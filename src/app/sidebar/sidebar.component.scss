@@ -1,0 +1,68 @@
+.sidebar-wrapper {
+  font-family: "Roboto";
+  position: relative;
+  min-height: 100vh;
+  overflow: auto;
+  width: 260px;
+  z-index: 4;
+}
+
+.side-title {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1em 1.5em;
+  span {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+}
+
+.nav {
+  margin-top: 20px;
+  float: none;
+  list-style: none;
+  padding: 0px;
+
+  li {
+    > a {
+      color: #ffffff;
+      opacity: 0.83;
+      border-radius: 5px;
+      display: block;
+      margin: 5px 15px;
+      padding: 10px 15px;
+      text-decoration: none;
+      > p {
+        color: white;
+        font-size: 0.85em;
+        font-weight: bolder;
+        margin: 0;
+        line-height: 30px;
+        text-transform: uppercase;
+        margin-left: 15px;
+        text-align: left;
+      }
+
+      > i {
+        font-size: 1.5em;
+        float: left;
+        line-height: 30px;
+        width: 30px;
+        text-align: center;
+        color: white;
+        margin-right: 15px;
+      }
+    }
+
+    &:hover > a {
+      background: rgba(255, 255, 255, 0.13);
+      opacity: 1;
+    }
+
+    &.active > a {
+      color: #ffffff;
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.23);
+    }
+  }
+}
