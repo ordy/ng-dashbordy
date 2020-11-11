@@ -1,17 +1,18 @@
 .sidebar-wrapper {
-  font-family: "Roboto";
   position: relative;
+  font-family: Roboto;
   min-height: 100vh;
-  overflow: auto;
   width: 260px;
-  z-index: 4;
+  z-index: 3;
 }
 
 .side-title {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(233, 233, 233, 0.2);
   padding: 1em 1.5em;
+  height: 3em;
   span {
     font-size: 18px;
+    font-weight: 900;
     text-transform: uppercase;
     color: #ffffff;
   }
@@ -19,10 +20,7 @@
 
 .nav {
   margin-top: 20px;
-  float: none;
-  list-style: none;
   padding: 0px;
-
   li {
     > a {
       color: #ffffff;
@@ -35,7 +33,7 @@
       > p {
         color: white;
         font-size: 0.85em;
-        font-weight: bolder;
+        font-weight: 400;
         margin: 0;
         line-height: 30px;
         text-transform: uppercase;
