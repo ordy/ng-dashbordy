@@ -1,17 +1,19 @@
-<div class="wrapper">
+<div class="dashboard-wrapper">
   <div class="sidebar">
     <div class="sidebar-background"></div>
     <app-sidebar></app-sidebar>
   </div>
-
   <div class="main-panel">
-    <app-header></app-header>
-    -- ROUTER IN DASHBOARD
-    <router-outlet></router-outlet>
-    <br>
-    -- ROUTER IN DASHBOARD
-
-    <app-footer></app-footer>
+    <div class="main-p-header">
+      <app-header></app-header>
+    </div>
+    <div class="main-p-router">
+      <div class="router-section">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div class="main-p-footer">
+      <app-footer></app-footer>
+    </div>
   </div>
-
 </div>
