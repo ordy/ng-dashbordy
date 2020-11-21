@@ -2,6 +2,16 @@
   background-color: rgb(235, 235, 243);
 }
 
+html {
+  font-size: 14px;
+}
+
 body {
   margin: 0;
+}
+
+p-inputMask {
+  input.p-inputmask.p-inputtext {
+    font-size: 1em;
+  }
 }

@@ -1,3 +1,17 @@
 .card-container {
   padding: 1em 3em;
+  th {
+    font-size: 1em;
+  }
+  td {
+    font-size: 0.9em;
+  }
+}
+
+.actions-bar {
+  display: flex;
+  justify-content: space-between;
+  button {
+    margin-left: 0.5em;
+  }
 }
