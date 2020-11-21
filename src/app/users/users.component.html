@@ -1,36 +1,103 @@
+<p-toast></p-toast>
+
+<!-- <div class="card-container">
+  <p-card>
+    <div class="actions-bar">
+      <p-button icon="pi pi-users" label="Get Users" (click)=getUsers()></p-button>
+      <div class="user-actions">
+        <button pButton pRipple icon="pi pi-plus" class="p-button-success" label="" (click)=addUser()></button>
+        <button pButton pRipple icon="pi pi-trash" class="p-button-danger" label="" (click)=deleteUser()></button>
+        <button pButton pRipple icon="pi pi-pencil" class="p-button-warning" label="" (click)=editUser()></button>
+      </div>
+    </div>
+  </p-card>
+</div> -->
+
 <div class="card-container">
+  <p-card header="Users">
 
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="addUser()"></button>
+        <button pButton pRipple icon="pi pi-trash" class="p-button-danger" [disabled]="!selectedUser" (click)="deleteUser()"></button>
+      </ng-template>
+    </p-toolbar>
 
-  <p-card header="Users">
-    User Table placeholder
+    <p-table [value]="usersTable" [autoLayout]="true" [(selection)]="selectedUser" dataKey="email">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 2em"></th>
+          <th>Name</th>
+          <th>email</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Last Log</th>
+          <th>Admin</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="user"></p-tableRadioButton>
+          </td>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.firstname">
+                <input pInputText type="text" [(ngModel)]="user.surname">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.firstname}} {{user.surname}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.email">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.email}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-inputMask mask="(999) 999-9999" [(ngModel)]="user.phone"></p-inputMask>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.phone}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="user.city">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{user.city}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            {{user.lastLogged}}
+          </td>
+          <td>
+            <p-inputSwitch [(ngModel)]="user.isAdmin" class=""></p-inputSwitch>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          There are {{usersTable ? usersTable.length : 0 }} users in the database.
+        </div>
+      </ng-template>
+    </p-table>
   </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-  <p-card header="Users">
-    User Table placeholder
-  </p-card>
-
-
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 </div>
+
+
+<p-button label="label" (click)="displaySel()"></p-button>
