@@ -13,6 +13,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { DialogModule } from 'primeng/dialog';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -51,6 +52,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     RippleModule,
     ToolbarModule,
     ToastModule,
+    DialogModule,
     ConfirmDialogModule,
     ProgressSpinnerModule,
     InputMaskModule,
