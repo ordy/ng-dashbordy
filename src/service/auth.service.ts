@@ -26,11 +26,7 @@ export class AuthService {
   public loggedIn = new BehaviorSubject<boolean>(false);
   public currentUser = new BehaviorSubject<string>('unset');
 
-  constructor(
-    public fireAuth: AngularFireAuth,
-    public db: AngularFirestore,
-    private route: Router
-  ) {
+  constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore) {
     console.log('authS constreucto');
     this.authState();
   }
@@ -105,28 +101,5 @@ export class AuthService {
   get currentUserID(): Observable<string> {
     this.currentUser.next('NOPE');
     return this.currentUser.asObservable();
-  }
-
-  async fetchUsers2(): Promise<User[]> {
-    if (this.usersList == null) {
-      this.usersDB = this.db.collection('users');
-      this.usersList = [];
-      await this.usersDB.get().forEach((el) => {
-        el.forEach((x) => {
-          const user: User = {
-            uid: 'toDefine',
-            firstname: x.get('firstname'),
-            surname: x.get('surname'),
-            email: x.get('email'),
-            city: x.get('city'),
-            phone: x.get('phone'),
-            lastLogged: x.get('lastLogged'),
-            isAdmin: x.get('isAdmin'),
-          };
-          this.usersList.push(user);
-        });
-      });
-    }
-    return this.usersList;
   }
 }
