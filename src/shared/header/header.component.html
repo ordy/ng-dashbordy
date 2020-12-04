@@ -2,7 +2,7 @@
   <span class="header-placeholder">Dashboard</span>
   <div class="user-header">
     <span class="user-name">{{ currentUser | async }}</span>
-    <button *ngIf="isLogged | async; else loginButton" pButton title="Log out" type="button" icon="pi pi-power-off" class="p-button-rounded p-button-danger" (click)="logout()"></button>
-    <ng-template #loginButton><button pButton title="Log in" type="button" icon="pi pi-power-off" class="p-button-rounded p-button-success" (click)="login()"></button></ng-template>
+    <button *ngIf="isLogged | async; else loginButton" pButton title="Log out" type="button" icon="pi pi-user" class="p-button-rounded p-button-outlined" (click)="logout()"></button>
+    <ng-template #loginButton><button pButton title="Log in" type="button" icon="pi pi-user" class="p-button-rounded p-button-success p-button-outlined" (click)="login()"></button></ng-template>
   </div>
 </div>
