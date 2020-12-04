@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { AuthService } from 'src/service/auth.service';
+import { UserService } from 'src/service/user.service';
 import { User } from 'src/shared/user';
 
 @Component({
@@ -12,22 +12,22 @@ import { User } from 'src/shared/user';
 export class UsersComponent implements OnInit {
   public usersTable: User[] = [];
   public selectedUser: User;
-  public user: User;
-  public roles: string[] = ['admin', 'user'];
+  public dialogUser: User;
+  public showDialog: boolean;
 
   constructor(
-    // public userS: UserService,
-    public authS: AuthService,
+    public userS: UserService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) {
     this.getUsers();
+    this.showDialog = false;
   }
 
   ngOnInit(): void {}
 
   async getUsers(): Promise<void> {
-    this.usersTable = await this.authS.fetchUsers2();
+    this.usersTable = await this.userS.fetchUsers();
   }
 
   addUser() {
@@ -36,14 +36,16 @@ export class UsersComponent implements OnInit {
       summary: 'New user',
       detail: 'Successfully added!',
     });
+    //this.userS.updateUser(this.selectedUser);
   }
 
   deleteUser(): void {
     this.confirmationService.confirm({
       message:
         'Are you sure you want to delete ' +
-        this.selectedUser.firstname +
-        this.selectedUser.surname +
+        this.selectedUser.firstname.bold() +
+        ' ' +
+        this.selectedUser.surname.bold() +
         '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
@@ -51,21 +53,39 @@ export class UsersComponent implements OnInit {
         this.usersTable = this.usersTable.filter(
           (res) => res.email !== this.selectedUser.email
         );
+        this.userS.deleteUser(this.selectedUser.email);
         this.messageService.add({
           severity: 'success',
-          summary: 'Successful',
-          detail: 'User Deleted!',
+          summary: 'Deleted',
+          detail: 'The user has been removed!',
           life: 3000,
         });
       },
     });
   }
 
-  editUser() {
-    // this.userS.updateUser();
+  // Working on a copy to avoid data binding on input
+  editUser(): void {
+    this.showDialog = true;
+    this.dialogUser = { ...this.selectedUser };
   }
-  displaySel() {
-    console.log(this.selectedUser.firstname);
-    console.log(this.user);
+
+  saveUser(): void {
+    const currentUser = this.usersTable.findIndex(
+      (usr) => usr.email === this.dialogUser.email
+    );
+    this.usersTable[currentUser] = { ...this.dialogUser };
+    this.selectedUser = { ...this.dialogUser };
+    console.log(this.selectedUser);
+    this.userS.updateUser(this.selectedUser);
+    this.showDialog = false;
+  }
+
+  hideDialog() {
+    this.showDialog = false;
+  }
+
+  toDate(date: Date): string {
+    return date.toLocaleDateString();
   }
 }
