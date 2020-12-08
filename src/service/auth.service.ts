@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
 import { User } from '../shared/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
@@ -9,12 +8,14 @@ import {
   DocumentData,
   DocumentReference,
 } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public user: firebase.default.User;
+  public user: firebase.User;
   public userRef: DocumentReference;
   public docRef: DocumentData;
 
@@ -25,17 +26,20 @@ export class AuthService {
   public loading = new BehaviorSubject<boolean>(false);
   public loggedIn = new BehaviorSubject<boolean>(false);
   public currentUser = new BehaviorSubject<string>('unset');
+  public userInit = firebase.initializeApp(
+    environment.firebaseConfig,
+    'userCreationEnv'
+  );
 
   constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore) {
-    console.log('authS constreucto');
     this.authState();
   }
 
   async authState(): Promise<void> {
-    await this.fireAuth.onAuthStateChanged((user: firebase.default.User) => {
+    await this.fireAuth.onAuthStateChanged((user: firebase.User) => {
       if (user) {
         this.loggedIn.next(true);
-        this.fireAuth.authState.subscribe((res: firebase.default.User) => {
+        this.fireAuth.authState.subscribe((res: firebase.User) => {
           if (res != null) {
             this.user = res;
           }
@@ -88,6 +92,18 @@ export class AuthService {
         window.alert(error.message);
         this.loading.next(false);
       });
+  }
+
+  // Creating new users without changing the admin auth state
+  async addNewUser(mail: string, pass: string): Promise<string> {
+    const uid = await this.userInit
+      .auth()
+      .createUserWithEmailAndPassword(mail, pass)
+      .then((usr) => {
+        return usr.user.uid;
+      });
+    this.userInit.auth().signOut();
+    return uid;
   }
 
   get isLoggedIn(): Observable<boolean> {
