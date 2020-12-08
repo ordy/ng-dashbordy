@@ -28,7 +28,7 @@
           <td>{{user.email}}</td>
           <td>{{user.phone}}</td>
           <td>{{user.city}}</td>
-          <td>{{toDate(user.lastLogged)}}</td>
+          <td>{{user.lastLogged?.toLocaleDateString()}}</td>
           <td>{{user.isAdmin}}</td>
         </tr>
       </ng-template>
@@ -44,14 +44,17 @@
         <div class="p-field">
           <label for="firstname-input">Firstname</label>
           <input type="text" pInputText id="firstname-input" [(ngModel)]="dialogUser.firstname" required autofocus />
+          <small class="p-invalid" *ngIf="submitted && !dialogUser.firstname">Firstame is required.</small>
         </div>
         <div class="p-field">
           <label for="surname-input">Surname</label>
           <input id="surname-input" pInputText [(ngModel)]="dialogUser.surname" required />
+          <small class="p-invalid" *ngIf="submitted && !dialogUser.surname">Surname is required.</small>
         </div>
         <div class="p-field">
           <label for="email-input">Email</label>
           <input id="email-input" pInputText [(ngModel)]="dialogUser.email" required />
+          <small class="p-invalid" *ngIf="submitted && !dialogUser.email">email is required.</small>
         </div>
         <div class="p-field">
           <label for="phone-input">Phone</label>
@@ -59,7 +62,7 @@
         </div>
         <div class="p-field">
           <label for="city-input">City</label>
-          <input id="city-input" pInputText [(ngModel)]="dialogUser.city" required />
+          <input id="city-input" pInputText [(ngModel)]="dialogUser.city" />
         </div>
         <div class="p-field">
           <label for="admin-input">Role</label>
@@ -73,4 +76,6 @@
     </p-dialog>
   </p-card>
   <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  <button pButton label="Log User" class="p-button-text" (click)="logUser()"></button>
+
 </div>
