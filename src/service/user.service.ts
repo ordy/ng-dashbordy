@@ -3,7 +3,6 @@ import { User } from '../shared/user';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  DocumentData,
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 
@@ -13,7 +12,6 @@ import { AuthService } from './auth.service';
 export class UserService {
   public usersList: User[];
   public usersDB: AngularFirestoreCollection;
-  public docRef;
 
   constructor(public db: AngularFirestore, public authS: AuthService) {
     this.usersDB = this.db.collection('users');
@@ -32,7 +30,7 @@ export class UserService {
             city: x.get('city'),
             region: x.get('region'),
             phone: x.get('phone'),
-            lastLogged: x.get('lastLogged').toDate(),
+            lastLogged: x.get('lastLogged')?.toDate(),
             isAdmin: x.get('isAdmin'),
           };
           this.usersList.push(user);
@@ -42,34 +40,32 @@ export class UserService {
     return this.usersList;
   }
 
-  userRef(collection: string, field: string, value: string): DocumentData {
-    return this.db.firestore.collection(collection).where(field, '==', value);
-  }
-
-  addUser(newUser: User): void {
-    //newUser.uid = this.authS.signUp(newUser.email, this.passwordGen());
-    this.usersList.push(newUser);
-  }
-
-  deleteUser(userEmail: string): void {
-    this.userRef('users', 'email', userEmail)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref.delete();
+  async addUser(newUser: User): Promise<string> {
+    const uid = await this.authS
+      .addNewUser(newUser.email, this.passwordGen())
+      .then(() => {
+        newUser.uid = uid;
+        this.usersDB.doc(uid).set({
+          email: newUser.email,
+          firstname: newUser.firstname,
+          surname: newUser.surname,
         });
+        return uid;
       });
+    this.usersList.push(newUser);
+    return uid;
+  }
+
+  deleteUser(userID: string): void {
+    this.usersDB.doc(userID);
+    this.usersList = this.usersList.filter((res) => res.uid !== userID);
   }
 
   updateUser(user: User): void {
     user.lastLogged = new Date();
-    this.userRef('users', 'email', user.email)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref.set(user);
-        });
-      });
+    this.usersDB.doc(user.uid).set(user);
+    const index = this.usersList.findIndex((usr) => usr.email === user.email);
+    this.usersList[index] = { ...user };
   }
 
   // Return a random password between 16 and 25 characters
