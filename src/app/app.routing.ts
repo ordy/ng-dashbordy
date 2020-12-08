@@ -3,25 +3,30 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
-import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { RouteGuard } from 'src/service/route.guard';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [RouteGuard],
     data: { title: 'Dashboard' },
     children: [
       {
         path: 'users',
         component: UsersComponent,
+        canActivate: [RouteGuard],
         data: { title: 'Users' },
       },
     ],
   },
   { path: 'login', component: LoginComponent, data: { title: 'Admin Login' } },
-  { path: 'spinner', component: SpinnerComponent, data: { title: 'Loading' } },
-  { path: '**', component: DashboardComponent, data: { title: 'Dashboard' } },
+  {
+    path: '**',
+    component: DashboardComponent,
+    data: { title: 'Dashboard' },
+  },
 ];
 
 @NgModule({
