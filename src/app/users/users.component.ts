@@ -11,6 +11,10 @@ import { User } from 'src/shared/user';
 })
 export class UsersComponent implements OnInit {
   public usersTable: User[] = [];
+  public roles = [
+    { label: 'ADMIN', value: true },
+    { label: 'USER', value: false },
+  ];
   public selectedUser: User;
   public dialogUser: User;
   public showDialog: boolean;
@@ -49,7 +53,7 @@ export class UsersComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.usersTable = this.usersTable.filter(
-          (res) => res.email !== this.selectedUser.email
+          (usr) => usr.uid !== this.selectedUser.uid
         );
         this.userS.deleteUser(this.selectedUser.uid);
         this.notifyMsg('success', 'Deleted', 'The user has been removed!');
@@ -65,23 +69,45 @@ export class UsersComponent implements OnInit {
 
   saveUser(): void {
     this.submitted = true;
-    if (this.dialogUser.uid) {
-      const currentUser = this.usersTable.findIndex(
-        (usr) => usr.email === this.dialogUser.email
-      );
-      this.usersTable[currentUser] = { ...this.dialogUser };
-      this.selectedUser = { ...this.dialogUser };
-      this.userS.updateUser(this.selectedUser);
-      this.showDialog = false;
-      this.notifyMsg('success', 'Edit user', 'Successfully edited!');
-    } else {
-      this.userS.addUser(this.dialogUser).then((res) => {
-        this.dialogUser.uid = res;
-        this.usersTable.push(this.dialogUser);
-      });
-      this.showDialog = false;
-      this.notifyMsg('success', 'New user', 'Successfully added!');
+    // Checking if required fields are not empty before saving
+    if (
+      this.isValid(
+        this.dialogUser.firstname,
+        this.dialogUser.surname,
+        this.dialogUser.email
+      )
+    ) {
+      if (this.dialogUser.uid) {
+        const currentUser = this.usersTable.findIndex(
+          (usr) => usr.uid === this.dialogUser.uid
+        );
+        this.usersTable[currentUser] = { ...this.dialogUser };
+        this.selectedUser = { ...this.dialogUser };
+        this.userS.updateUser(this.selectedUser);
+        this.showDialog = false;
+        this.notifyMsg('success', 'Edit user', 'Successfully edited!');
+      } else {
+        if (this.dialogUser.isAdmin == null) {
+          this.dialogUser.isAdmin = false;
+        }
+        this.userS.addUser(this.dialogUser);
+        this.showDialog = false;
+        this.notifyMsg('success', 'New user', 'Successfully added!');
+      }
     }
+  }
+
+  isValid(...params: string[]): boolean {
+    let valid = true;
+    params.forEach((str) => {
+      valid = valid && str != null && str.trim().length > 0;
+    });
+    if (valid) {
+      console.log('All are valid');
+    } else {
+      console.log('Not valid');
+    }
+    return valid;
   }
 
   notifyMsg(type: string, title: string, message: string): void {
@@ -95,13 +121,5 @@ export class UsersComponent implements OnInit {
   hideDialog(): void {
     this.submitted = false;
     this.showDialog = false;
-  }
-
-  logUser(): void {
-    this.usersTable.forEach((el) => {
-      for (const [key, value] of Object.entries(el)) {
-        console.log(key, value);
-      }
-    });
   }
 }
