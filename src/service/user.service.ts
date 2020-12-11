@@ -40,31 +40,35 @@ export class UserService {
     return this.usersList;
   }
 
-  async addUser(newUser: User): Promise<string> {
-    const uid = await this.authS
+  async addUser(newUser: User): Promise<void> {
+    await this.authS
       .addNewUser(newUser.email, this.passwordGen())
-      .then(() => {
-        newUser.uid = uid;
-        this.usersDB.doc(uid).set({
-          email: newUser.email,
-          firstname: newUser.firstname,
-          surname: newUser.surname,
+      .then((userID) => {
+        newUser.uid = userID;
+        // removing empty data
+        Object.keys(newUser).forEach((key) => {
+          if (newUser[key] == null) {
+            delete newUser[key];
+          }
         });
-        return uid;
+        this.usersDB.doc(userID).set(newUser);
       });
     this.usersList.push(newUser);
-    return uid;
   }
 
   deleteUser(userID: string): void {
-    this.usersDB.doc(userID);
+    this.usersDB.doc(userID).delete();
     this.usersList = this.usersList.filter((res) => res.uid !== userID);
   }
 
   updateUser(user: User): void {
-    user.lastLogged = new Date();
-    this.usersDB.doc(user.uid).set(user);
-    const index = this.usersList.findIndex((usr) => usr.email === user.email);
+    Object.keys(user).forEach((key) => {
+      if (user[key] == null) {
+        delete user[key];
+      }
+    });
+    this.usersDB.doc(user.uid).set(user, { merge: true });
+    const index = this.usersList.findIndex((usr) => usr.uid === user.uid);
     this.usersList[index] = { ...user };
   }
 
