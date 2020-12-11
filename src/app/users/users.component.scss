@@ -15,3 +15,30 @@
     margin-left: 0.5em;
   }
 }
+
+:host ::ng-deep {
+  .p-dialog {
+    width: 35em !important;
+  }
+  .p-paginator {
+    .p-paginator-current {
+      margin-left: auto;
+    }
+  }
+  .p-input-icon-left {
+    display: inline-block;
+    input {
+      padding-left: 2em;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.p-field {
+  input {
+    width: 100%;
+  }
+  label {
+    display: block;
+  }
+}
