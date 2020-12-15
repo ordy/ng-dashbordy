@@ -1,37 +1,38 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from '../shared/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   DocumentData,
-  DocumentReference,
 } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import firebase from 'firebase/app';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public user: firebase.User;
-  public userRef: DocumentReference;
   public docRef: DocumentData;
 
-  public usersList: User[];
   public usersDB: AngularFirestoreCollection;
 
   public lastUserName: string;
   public loading = new BehaviorSubject<boolean>(false);
   public loggedIn = new BehaviorSubject<boolean>(false);
-  public currentUser = new BehaviorSubject<string>('unset');
+  public currentUser = new BehaviorSubject<string>('');
   public userInit = firebase.initializeApp(
     environment.firebaseConfig,
     'userCreationEnv'
   );
 
-  constructor(public fireAuth: AngularFireAuth, public db: AngularFirestore) {
+  constructor(
+    public fireAuth: AngularFireAuth,
+    public db: AngularFirestore,
+    public route: Router
+  ) {
     this.authState();
   }
 
@@ -40,23 +41,19 @@ export class AuthService {
       if (user) {
         this.loggedIn.next(true);
         this.fireAuth.authState.subscribe((res: firebase.User) => {
-          if (res != null) {
+          if (res) {
             this.user = res;
+            this.updateUserInfo();
           }
         });
       }
     });
-    this.updateUserInfo();
   }
 
   async updateUserInfo(): Promise<void> {
-    this.docRef = this.db.firestore
-      .collection('users')
-      .where('firstname', '==', 'Sandro');
-    await this.docRef.get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        this.currentUser.next(doc.data().firstname + ' ' + doc.data().surname);
-      });
+    this.docRef = this.db.firestore.collection('users').doc(this.user.uid);
+    await this.docRef.get().then((usr: DocumentData) => {
+      this.currentUser.next(usr.get('firstname') + ' ' + usr.get('surname'));
     });
   }
 
@@ -66,27 +63,19 @@ export class AuthService {
     this.loggedIn.next(false);
     this.currentUser.next('Log in');
     this.user = null;
-    // this.route.navigateByUrl('/login');
+    this.route.navigateByUrl('/login');
     this.loading.next(false);
   }
 
-  async signIn(
-    username: string,
-    password: string,
-    keepLocal: boolean
-  ): Promise<any> {
-    // set persistence state if user wants to stay logged in
+  async signIn(username: string, password: string): Promise<any> {
     this.loading.next(true);
-    const logState = keepLocal ? 'local' : 'session';
-    this.fireAuth.setPersistence(logState);
-    // Auth and redirection to homepage
+    this.fireAuth.setPersistence('local');
     return this.fireAuth
       .signInWithEmailAndPassword(username, password)
       .then(() => {
         this.loggedIn.next(true);
         this.loading.next(false);
-        this.updateUserInfo();
-        // this.route.navigateByUrl('/');
+        this.route.navigateByUrl('/');
       })
       .catch((error) => {
         window.alert(error.message);
@@ -115,7 +104,6 @@ export class AuthService {
   }
 
   get currentUserID(): Observable<string> {
-    this.currentUser.next('NOPE');
     return this.currentUser.asObservable();
   }
 }
