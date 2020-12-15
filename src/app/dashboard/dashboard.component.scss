@@ -17,7 +17,8 @@
   padding-bottom: 2em;
 }
 .main-p-header {
-  //position: fixed;
+  position: sticky;
+  z-index: 3;
   top: 0;
   width: 100%;
 }
