@@ -1,8 +1,9 @@
 <div class="header-container">
   <span class="header-placeholder">Dashboard</span>
+
   <div class="user-header">
     <span class="user-name">{{ currentUser | async }}</span>
-    <button *ngIf="isLogged | async; else loginButton" pButton title="Log out" type="button" icon="pi pi-user" class="p-button-rounded p-button-outlined" (click)="logout()"></button>
-    <ng-template #loginButton><button pButton title="Log in" type="button" icon="pi pi-user" class="p-button-rounded p-button-success p-button-outlined" (click)="login()"></button></ng-template>
+    <button pButton title="Log out" type="button" icon="pi pi-angle-down" class="p-button-rounded p-button-outlined" (click)="menu.toggle($event)"></button>
+    <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu>
   </div>
 </div>
