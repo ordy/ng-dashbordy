@@ -1,9 +1,17 @@
 <div class="header-container">
-  <span class="header-placeholder">Dashboard</span>
-
-  <div class="user-header">
+  <div class="header-content-left">
+    <button pButton type="button" (click)="display = true" class="p-button-text p-button-secondary" icon="pi pi-bars"></button>
+    <span class="header-title">Dashboard</span>
+  </div>
+  <div class="header-content-right">
     <span class="user-name">{{ currentUser | async }}</span>
     <button pButton title="Log out" type="button" icon="pi pi-angle-down" class="p-button-rounded p-button-outlined" (click)="menu.toggle($event)"></button>
     <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu>
   </div>
 </div>
+<p-sidebar [(visible)]="display" appendTo="body">
+  <div class="sidebar" (click)="display = false">
+    <div class="sidebar-background"></div>
+    <app-sidebar></app-sidebar>
+  </div>
+</p-sidebar>

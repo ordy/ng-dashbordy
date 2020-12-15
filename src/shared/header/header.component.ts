@@ -10,11 +10,15 @@ import { MenuItem } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
   public userName: string;
+  public display = false;
   public currentUser: Observable<string>;
   public isLogged: Observable<boolean>;
   public items: MenuItem[];
 
-  constructor(private authS: AuthService) {}
+  constructor(private authS: AuthService) {
+    this.isLogged = this.authS.isLoggedIn;
+    this.currentUser = this.authS.currentUserID;
+  }
 
   ngOnInit(): void {
     this.items = [
@@ -22,15 +26,9 @@ export class HeaderComponent implements OnInit {
         label: 'Log out',
         icon: 'pi pi-fw pi-power-off',
         command: () => {
-          this.logout();
+          this.authS.signOut();
         },
       },
     ];
-    this.isLogged = this.authS.isLoggedIn;
-    this.currentUser = this.authS.currentUserID;
-  }
-
-  logout(): void {
-    this.authS.signOut();
   }
 }

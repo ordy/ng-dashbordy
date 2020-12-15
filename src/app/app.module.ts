@@ -32,6 +32,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { LoginComponent } from './login/login.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MenuModule } from 'primeng/menu';
     SpinnerComponent,
   ],
   imports: [
+    SidebarModule,
     MenuModule,
     FormsModule,
     BrowserModule,

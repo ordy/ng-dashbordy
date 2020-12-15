@@ -1,6 +1,7 @@
 .dashboard-wrapper {
   display: flex;
   height: 100vh;
+  min-width: 540px;
 }
 
 .main-panel {
@@ -45,5 +46,11 @@
     left: 0;
     background-size: cover;
     background-position: left center;
+  }
+}
+
+@media all and (max-width: 1049px) {
+  .sidebar {
+    display: none;
   }
 }

@@ -10,18 +10,61 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.header-placeholder {
-  font-size: 2em;
-  text-transform: capitalize;
-  font-family: Roboto;
+
+  .header-title {
+    font-size: 2em;
+    text-transform: capitalize;
+    font-family: Roboto;
+  }
+
+  .header-content-right {
+    display: flex;
+    align-items: center;
+    .user-name {
+      font-family: Roboto;
+      margin-right: 0.5em;
+    }
+  }
+
+  .header-content-left {
+    button {
+      margin-right: 0.3em;
+      display: none;
+    }
+  }
 }
 
-.user-header {
-  display: flex;
-  align-items: center;
-  .user-name {
-    font-family: Roboto;
-    margin-right: 0.5em;
+.sidebar {
+  height: 100vh;
+  z-index: 2;
+  width: 260px;
+  background: linear-gradient(
+    0deg,
+    rgb(42, 21, 87) 0%,
+    rgb(15, 59, 180) 33%,
+    rgb(0, 110, 255) 100%
+  );
+
+  .sidebar-background {
+    background-image: url("../../assets/img/sidebar-bg.jpg");
+    z-index: 1;
+    width: 260px;
+    height: 100vh;
+    opacity: 0.33;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background-position: left center;
+  }
+}
+
+@media all and (max-width: 1049px) {
+  .header-container {
+    .header-content-left {
+      button {
+        display: inline-flex;
+      }
+    }
   }
 }
