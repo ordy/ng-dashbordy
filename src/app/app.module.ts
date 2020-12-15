@@ -14,6 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -22,13 +23,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
-import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { environment } from 'src/environments/environment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { LoginComponent } from './login/login.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     SpinnerComponent,
   ],
   imports: [
+    MenuModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -57,6 +61,8 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     ProgressSpinnerModule,
     InputMaskModule,
     InputSwitchModule,
+    InputTextModule,
+    PasswordModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,

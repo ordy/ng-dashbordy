@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="header">
+  <img src="../../assets/img/logo_blue.svg" alt="site-logo">
+  <span class="p-pl-3">Dashbordy</span>
+</div>
+<div class="container" *ngIf="!(loading | async); else spinner">
+  <p-card header="Login" [style]="{width: '30em'}">
+    <form #loginForm="ngForm" (ngSubmit)="signIn(loginForm)">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="usrmail">Email</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input pInputText type="text" id="usrmail" ngModel name="email" required />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="usrpwd">Password</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+            <input type="password" id="usrpwd" [feedback]="false" ngModel name="pwd" required pPassword minlength="8" />
+          </div>
+        </div>
+        <button class="p-mt-4" pButton type="submit" [disabled]="!loginForm.valid" label="Log In"></button>
+      </div>
+    </form>
+  </p-card>
+</div>
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

@@ -6,7 +6,12 @@ import { UsersComponent } from './users/users.component';
 import { RouteGuard } from 'src/service/route.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
+  {
+    path: '',
+    component: DashboardComponent,
+    data: { title: 'Dashboard' },
+    canActivate: [RouteGuard],
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,
