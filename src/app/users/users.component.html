@@ -5,8 +5,8 @@
 
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
-        <button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="addUser()"></button>
-        <button pButton pRipple icon="pi pi-pencil" class="p-button-warning p-mr-2" [disabled]="!selectedUser" (click)="editUser(selectedUser)"></button>
+        <button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-info p-mr-2" (click)="addUser()"></button>
+        <button pButton pRipple icon="pi pi-pencil" class="p-button-secondary p-mr-2" [disabled]="!selectedUser" (click)="editUser(selectedUser)"></button>
         <button pButton pRipple icon="pi pi-trash" class="p-button-danger" [disabled]="!selectedUser" (click)="deleteUser()"></button>
       </ng-template>
       <ng-template pTemplate="right">
@@ -41,7 +41,7 @@
           <td>{{user.city}}</td>
           <td>{{user.lastLogged?.toLocaleDateString()}}</td>
           <td>
-            <span [class]="'role-badge role-'+(user.isAdmin ? 'admin':'user')">{{user.isAdmin}}</span>
+            <span [class]="'p-tag p-tag-secondary role-'+roles(user.isAdmin)">{{roles(user.isAdmin)}}</span>
           </td>
         </tr>
       </ng-template>

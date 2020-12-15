@@ -11,10 +11,6 @@ import { User } from 'src/shared/user';
 })
 export class UsersComponent implements OnInit {
   public usersTable: User[] = [];
-  public roles = [
-    { label: 'ADMIN', value: true },
-    { label: 'USER', value: false },
-  ];
   public selectedUser: User;
   public dialogUser: User;
   public showDialog: boolean;
@@ -121,5 +117,9 @@ export class UsersComponent implements OnInit {
   hideDialog(): void {
     this.submitted = false;
     this.showDialog = false;
+  }
+
+  roles(isAdmin: boolean): string {
+    return isAdmin ? 'admin' : 'user';
   }
 }
