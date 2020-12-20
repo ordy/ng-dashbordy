@@ -1,4 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CardModule } from 'primeng/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { UserService } from 'src/service/user.service';
 
 import { UsersComponent } from './users.component';
 
@@ -8,9 +15,17 @@ describe('UsersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UsersComponent ]
-    })
-    .compileComponents();
+      declarations: [UsersComponent],
+      imports: [
+        CardModule,
+        TableModule,
+        DialogModule,
+        ToolbarModule,
+        ConfirmDialogModule,
+        ToastModule,
+      ],
+      providers: [{ provide: UserService, useClass: UserServiceStub }],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -23,3 +38,5 @@ describe('UsersComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class UserServiceStub {}

@@ -6,11 +6,16 @@ describe('UserService', () => {
   let service: UserService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [{ provide: UserService, useClass: UserServiceStub }],
+    });
     service = TestBed.inject(UserService);
   });
 
   it('should be created', () => {
+    service = TestBed.inject(UserService);
     expect(service).toBeTruthy();
   });
 });
+
+class UserServiceStub {}
