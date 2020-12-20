@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-declare const $: any;
 declare interface RouteInfo {
   path: string;
   title: string;
@@ -23,12 +21,5 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
-  }
-
-  isMobileMenu(): boolean {
-    if ($(window).width() > 900) {
-      return false;
-    }
-    return true;
   }
 }

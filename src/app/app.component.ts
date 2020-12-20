@@ -1,12 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import {
-  Router,
-  NavigationEnd,
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { filter, map } from 'rxjs/operators';
 
@@ -19,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(
     private primengConfig: PrimeNGConfig,
     private activeRoute: ActivatedRoute,
-    private title: Title,
+    public title: Title,
     private router: Router
   ) {}
 
