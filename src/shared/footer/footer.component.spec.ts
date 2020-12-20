@@ -8,9 +8,8 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
-    })
-    .compileComponents();
+      declarations: [FooterComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +20,10 @@ describe('FooterComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display current year', () => {
+    const year = new Date().getFullYear();
+    expect(component.currentYear).toEqual(year);
   });
 });
