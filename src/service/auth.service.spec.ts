@@ -6,7 +6,9 @@ describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [{ provide: AuthService, useClass: AuthServiceStub }],
+    });
     service = TestBed.inject(AuthService);
   });
 
@@ -14,3 +16,5 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 });
+
+class AuthServiceStub {}
