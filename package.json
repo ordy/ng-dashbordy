@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start:prod": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --prod --aot --build-optimizer"
   },
   "engines": {
     "node": "14.15.3",
@@ -26,13 +26,14 @@
     "@angular/platform-browser": "~10.2.0",
     "@angular/platform-browser-dynamic": "~10.2.0",
     "@angular/router": "~10.2.0",
+    "express": "^4.17.1",
     "firebase": "^8.0.2",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",
-    "typescript": "~4.0.2",
     "primeng": "^10.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "typescript": "~4.0.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
