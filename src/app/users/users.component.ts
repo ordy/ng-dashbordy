@@ -95,14 +95,12 @@ export class UsersComponent implements OnInit {
 
   isValid(...params: string[]): boolean {
     let valid = true;
-    params.forEach((str) => {
-      valid = valid && str != null && str.trim().length > 0;
-    });
-    if (valid) {
-      console.log('All are valid');
-    } else {
-      console.log('Not valid');
+    if (params.length < 3) {
+      return false;
     }
+    params.forEach((str) => {
+      valid = valid && str.trim().length > 0;
+    });
     return valid;
   }
 
