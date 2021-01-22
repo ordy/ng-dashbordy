@@ -1,28 +1,31 @@
 ![Dashbordy Logo](/src/assets/img/git-banner.jpg)
 
-An Angular interface to create, read, update and delete Firestore users implemented using primeNG UI components.
+*An Angular interface to create, read, update and delete Firestore users implemented using primeNG UI components.*
 
 ## About the project
 
 Dashbordy is one of my personal pet projects developed in Angular, using Firebase as a backend and deployed on Heroku.
 The main scope of the project was to implement and design a single page application to perform common CRUD operations on Firestore users documents.
-It was also a mean to further build my Angular knowledge and get familiar with new environments like [PrimeNG](https://github.com/primefaces/primeng) and SCSS.
+It was also a mean to further build up my Angular knowledge and get familiar with new environments like [PrimeNG](https://github.com/primefaces/primeng) and SCSS.
 
 ## Firestore
 
-The users are stored on Firebase in a collection of documents. The ID of every document refers to their respective UID in the the Firebase Authentication database.
+* The users are stored on Firebase in a collection of documents. The ID of every document refers to their respective UID in the the Firebase Authentication database.
 
 ![firestore model](/src/assets/img/firestore.jpg)
 
 ## Angular
 
-The Angular application comes with a login page to prevent unauthorised read and writes. Make sure to modify your Firebase security rules to allow users with an admin role.
+* The Angular application comes with a login page to prevent unauthorised read and writes. Make sure to modify your Firebase security rules to allow users with an admin role.
+
 ![login page](/src/assets/img/login.jpg)
 
-The columns can be sorted and the input box will filter the search results on matching name, email or city.
+* The columns can be sorted and the input box will filter the search results on matching name, email or city.
+
 ![table view](/src/assets/img/table.jpg)
 
-A modal window to create new users or edit existing ones.
+* A modal window to create new users or edit existing ones.
+
 ![modal window](/src/assets/img/user.jpg)
 
 ## Heroku
