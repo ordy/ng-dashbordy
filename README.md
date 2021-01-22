@@ -1,6 +1,6 @@
 ![Dashbordy Logo](/src/assets/img/git-banner.jpg)
 
-*An Angular interface to create, read, update and delete Firestore users implemented using primeNG UI components.*
+*An Angular interface to create, read, update and delete Firestore users*
 
 ## About the project
 
