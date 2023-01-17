@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/service/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { AuthService } from 'src/service/auth.service';
 })
 export class LoginComponent implements OnInit {
   public loading: Observable<boolean>;
+  public env = environment.firebaseConfig;
 
   constructor(private authS: AuthService) {
     this.loading = this.authS.isLoading;
