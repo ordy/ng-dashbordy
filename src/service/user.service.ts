@@ -3,7 +3,7 @@ import { User } from '../shared/user';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-} from '@angular/fire/firestore';
+} from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
 
 @Injectable({

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   DocumentData,
-} from '@angular/fire/firestore';
+} from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
 
 @Injectable({
