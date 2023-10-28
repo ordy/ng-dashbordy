@@ -18,7 +18,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.2.11",
-    "@angular/cdk": "^15.2.9",
+    "@angular/cdk": "^16.2.10",
     "@angular/common": "^16.2.11",
     "@angular/compiler": "^16.2.11",
     "@angular/core": "^16.2.11",
@@ -30,7 +30,7 @@
     "firebase": "^8.10.1",
     "primeflex": "^2.0.0",
     "primeicons": "^6.0.1",
-    "primeng": "^15.4.1",
+    "primeng": "^16.6.0",
     "rxjs": "^6.6.7",
     "tslib": "^2.6.2",
     "zone.js": "~0.13.3"
