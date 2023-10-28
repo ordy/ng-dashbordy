@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "angularCompilerOptions": {
-    "types": ["node"]
+    "types": ["node", "jasmine"]
   },
   "compilerOptions": {
     "baseUrl": "./",
