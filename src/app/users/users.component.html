@@ -6,13 +6,13 @@
     <p-toolbar styleClass="p-mb-4">
       <ng-template pTemplate="left">
         <button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-info p-mr-2" (click)="addUser()"></button>
-        <button pButton pRipple icon="pi pi-pencil" class="p-button-secondary p-mr-2" [disabled]="!selectedUser" (click)="editUser(selectedUser)"></button>
+        <button pButton pRipple icon="pi pi-pencil" class="p-button-secondary p-mr-2" [disabled]="!selectedUser" (click)="editUser()"></button>
         <button pButton pRipple icon="pi pi-trash" class="p-button-danger" [disabled]="!selectedUser" (click)="deleteUser()"></button>
       </ng-template>
       <ng-template pTemplate="right">
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
         </span>
       </ng-template>
     </p-toolbar>

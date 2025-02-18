@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, UrlTree, Router } from '@angular/router';
+import { UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { take, map, tap } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { take, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class RouteGuard implements CanActivate {
+export class RouteGuard  {
   constructor(private authS: AuthService, private router: Router) {}
 
   canActivate():
@@ -15,7 +15,7 @@ export class RouteGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authS.fireAuth.authState.pipe(
+    return this.authS.$usr.pipe(
       take(1),
       map((user) => !!user),
       tap((loggedIn) => {

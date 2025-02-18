@@ -2,7 +2,8 @@
 {
   "compileOnSave": false,
   "angularCompilerOptions": {
-    "types": ["node"]
+    "types": ["node", "jasmine"],
+    "strictTemplates": true
   },
   "compilerOptions": {
     "baseUrl": "./",
@@ -13,8 +14,9 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
     "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "useDefineForClassFields": false
   }
 }
