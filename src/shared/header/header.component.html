@@ -4,7 +4,7 @@
     <span class="header-title">Dashboard</span>
   </div>
   <div class="header-content-right">
-    <span class="user-name">{{ currentUser | async }}</span>
+    <span class="user-name">{{ currentUser }}</span>
     <button pButton title="Log out" type="button" icon="pi pi-angle-down" class="p-button-rounded p-button-outlined" (click)="menu.toggle($event)"></button>
     <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu>
   </div>

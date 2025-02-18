@@ -15,7 +15,7 @@ export class RouteGuard  {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authS.fireAuth.authState.pipe(
+    return this.authS.$usr.pipe(
       take(1),
       map((user) => !!user),
       tap((loggedIn) => {

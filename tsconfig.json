@@ -2,7 +2,8 @@
 {
   "compileOnSave": false,
   "angularCompilerOptions": {
-    "types": ["node", "jasmine"]
+    "types": ["node", "jasmine"],
+    "strictTemplates": true
   },
   "compilerOptions": {
     "baseUrl": "./",
@@ -15,10 +16,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "useDefineForClassFields": false
   }
 }

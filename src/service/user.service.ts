@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { User } from '../shared/user';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
+import { CollectionReference, Firestore, collection, getDocs, setDoc, getDoc, doc, deleteDoc } from '@angular/fire/firestore';
+
+// import {
+//   AngularFirestore,
+//   AngularFirestoreCollection,
+// } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -11,17 +13,17 @@ import { AuthService } from './auth.service';
 })
 export class UserService {
   public usersList: User[];
-  public usersDB: AngularFirestoreCollection;
+  public usersDB: CollectionReference;
 
-  constructor(public db: AngularFirestore, public authS: AuthService) {
-    this.usersDB = this.db.collection('users');
+  constructor(public db: Firestore, public authS: AuthService) {
+    this.usersDB = collection(this.db, 'users');
   }
 
   async fetchUsers(): Promise<User[]> {
     if (this.usersList == null) {
       this.usersList = [];
-      await this.usersDB.get().forEach((el) => {
-        el.forEach((x) => {
+      const querySnapshot = await getDocs(this.usersDB);
+      querySnapshot.forEach((x) => {
           const user: User = {
             uid: x.get('uid'),
             firstname: x.get('firstname'),
@@ -34,7 +36,6 @@ export class UserService {
             isAdmin: x.get('isAdmin'),
           };
           this.usersList.push(user);
-        });
       });
     }
     return this.usersList;
@@ -51,13 +52,15 @@ export class UserService {
             delete newUser[key];
           }
         });
-        this.usersDB.doc(userID).set(newUser);
+        const docRef = doc(this.usersDB, userID);
+        setDoc(docRef, newUser);
       });
     this.usersList.push(newUser);
   }
 
-  deleteUser(userID: string): void {
-    this.usersDB.doc(userID).delete();
+  async deleteUser(userID: string): Promise<void> {
+    const docRef = doc(this.usersDB, userID);
+    deleteDoc(docRef);
     this.usersList = this.usersList.filter((res) => res.uid !== userID);
   }
 
@@ -67,7 +70,8 @@ export class UserService {
         delete user[key];
       }
     });
-    this.usersDB.doc(user.uid).set(user, { merge: true });
+    const docRef = doc(this.usersDB, user.uid);
+    setDoc(docRef, user, { merge: true });
     const index = this.usersList.findIndex((usr) => usr.uid === user.uid);
     this.usersList[index] = { ...user };
   }

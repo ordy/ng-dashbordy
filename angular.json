@@ -31,13 +31,13 @@
               "node_modules/primeflex/primeflex.css"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["@angular/fire/firestore"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -50,7 +50,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -130,5 +129,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

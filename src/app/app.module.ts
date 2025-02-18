@@ -15,10 +15,13 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+import { MenuModule } from 'primeng/menu';
+import { SidebarModule } from 'primeng/sidebar';
 
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
@@ -30,9 +33,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { environment } from 'src/environments/environment';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
 import { LoginComponent } from './login/login.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuModule } from 'primeng/menu';
-import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -65,9 +65,10 @@ import { SidebarModule } from 'primeng/sidebar';
     InputSwitchModule,
     InputTextModule,
     PasswordModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+    // AngularFireModule.initializeApp(environment.firebaseConfig),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+		provideAuth(() => getAuth()),
+		provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent],
